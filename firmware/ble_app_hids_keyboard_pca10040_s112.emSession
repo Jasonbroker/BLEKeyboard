@@ -42,7 +42,7 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="23" y="61" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../SDK/components/libraries/util/sdk_common.h" selected="1" top="27" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="39" y="36" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../SDK/components/libraries/util/sdk_common.h" selected="1" top="27" codecName="Default"/>
  </Files>
  <ARMCrossStudioWindow activeProject="keyboard_nrf52832_s112" fileDialogDefaultFilter="*.c;*.cpp;*.cxx;*.cc;*.h;*.hpp;*.hxx" autoConnectTarget="J-Link" buildConfiguration="Release" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="" debugSearchPath="" autoConnectCapabilities="3199"/>
 </session>
