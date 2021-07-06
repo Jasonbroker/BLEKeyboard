@@ -10,6 +10,15 @@ Implement a full featured powerful and extendable BLE keyboard firmware.
 ## HOW
 Write it at from beginning and add features for every version continuously.
 
+
+## version history
+v0.1
+This version contains is the source code for a sample application using the HID, Battery and Device
+ * Information Services for implementing a simple keyboard functionality.
+ * Pressing Button 0 will send text 'hello' to the connected peer. On receiving output report,
+ * it toggles the state of LED 2 on the mother board based on whether or not Caps Lock is on.
+ * This application uses the @ref app_scheduler.
+
 # BLEKeyboard
 使用NRF52832、52810 蓝牙5.0 键盘主控固件
 
