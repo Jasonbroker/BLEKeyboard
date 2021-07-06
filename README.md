@@ -23,3 +23,6 @@ Write it at from beginning and add features for every version continuously.
 从0开始开发一块蓝牙键盘固件
 会在b站同步更新开发视频，功能演进
 每个版本增加一些功能~
+
+## FAQ 
+为了方便大家、尤其是小白使用，将SDK依赖文件全部上传到项目中，导致项目比较大，如果觉得下载慢，可以从gitee中克隆项目，或直接下载zip
