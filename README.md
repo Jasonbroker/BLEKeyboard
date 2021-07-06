@@ -26,3 +26,6 @@ Write it at from beginning and add features for every version continuously.
 
 ## FAQ 
 为了方便大家、尤其是小白使用，将SDK依赖文件全部上传到项目中，导致项目比较大，如果觉得下载慢，可以从gitee中克隆项目，或直接下载zip
+
+## version history
+v0.1 文件结构化、用nordic实例项目用作初始化
