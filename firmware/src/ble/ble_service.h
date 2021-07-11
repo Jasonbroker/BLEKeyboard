@@ -23,4 +23,6 @@
     void timers_start(void);
     void advertising_start(bool erase_bonds);
 
+
+    void keys_send(uint8_t key_pattern_len, uint8_t * p_key_pattern);
 #endif

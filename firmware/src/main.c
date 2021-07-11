@@ -86,14 +86,16 @@ int main(void)
     log_init();
 
     timers_init();
-    buttons_leds_init(&erase_bonds);
+
     power_management_init();
+
     ble_stack_init();
     scheduler_init();
     gap_params_init();
     gatt_init();
     advertising_init();
     services_init();
+
     sensor_simulator_init();
     conn_params_init();
     buffer_init();
@@ -101,7 +103,9 @@ int main(void)
 
     // Start execution.
     nrf_print("HID Keyboard example started.");
+
     timers_start();
+
     advertising_start(erase_bonds);
 
     // Enter main loop.
