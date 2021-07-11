@@ -84,6 +84,7 @@ int main(void)
 
     // Initialize.
     log_init();
+
     timers_init();
     buttons_leds_init(&erase_bonds);
     power_management_init();
