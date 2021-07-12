@@ -3,6 +3,7 @@
 #ifndef BLE_SERVICE_H
 #define BLE_SERVICE_H
 #include <stdbool.h>
+#include <stdint.h>
 
     void log_init(void);
     void timers_init(void);
