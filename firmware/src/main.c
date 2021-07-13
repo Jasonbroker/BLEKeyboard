@@ -60,10 +60,11 @@
 #include <stdint.h>
 #include "ble_service.h"
 
-#include "log/nrf_print.h"
+#include "log/kb_nrf_print.h"
 #include "nrf_log_ctrl.h"
 #include "app_scheduler.h"
 #include "nrf_pwr_mgmt.h"
+#include "app_timer.h"
 
 /**@brief Function for handling the idle state (main loop).
  *
@@ -78,6 +79,56 @@ void idle_state_handle(void)
     }
 }
 
+/**@brief Function for the Timer initialization.
+ *
+ * @details Initializes the timer module.
+ */
+void timers_init(void)
+{
+    ret_code_t err_code;
+    err_code = app_timer_init();
+    APP_ERROR_CHECK(err_code);
+}
+
+/**@brief Function for initializing power management.
+ */
+void power_management_init(void)
+{
+    ret_code_t err_code;
+    err_code = nrf_pwr_mgmt_init();
+    APP_ERROR_CHECK(err_code);
+}
+
+void battery_level_meas_timeout_handler(void * p_context)
+{
+  keys_send(1, 0x16);
+}
+
+APP_TIMER_DEF(m_battery_timer_id);                                  /**< Battery timer. */
+
+void connection_test(void)
+{
+
+    ret_code_t err_code;
+
+    err_code = app_timer_init();
+    APP_ERROR_CHECK(err_code);
+
+    // Create battery timer.
+    err_code = app_timer_create(&m_battery_timer_id,
+                                APP_TIMER_MODE_REPEATED,
+                                battery_level_meas_timeout_handler);
+    APP_ERROR_CHECK(err_code);
+
+
+  ret_code_t err_code2;
+
+  err_code2 = app_timer_start(m_battery_timer_id, APP_TIMER_TICKS(2000), NULL);
+  APP_ERROR_CHECK(err_code2);
+
+}
+
+
 int main(void)
 {
     bool erase_bonds;
@@ -86,27 +137,26 @@ int main(void)
     log_init();
 
     timers_init();
+    scheduler_init();
 
     power_management_init();
 
     ble_stack_init();
-    scheduler_init();
     gap_params_init();
     gatt_init();
     advertising_init();
     services_init();
 
-    sensor_simulator_init();
     conn_params_init();
     buffer_init();
     peer_manager_init();
 
     // Start execution.
-    nrf_print("HID Keyboard example started.");
-
-    timers_start();
+    kb_nrf_print("HID Keyboard example started.");
 
     advertising_start(erase_bonds);
+
+   
 
     // Enter main loop.
     for (;;)
