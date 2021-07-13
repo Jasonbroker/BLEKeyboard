@@ -106,6 +106,9 @@
         <file file_name="src/log/kb_nrf_print.c" />
         <file file_name="src/log/kb_nrf_print.h" />
       </folder>
+      <folder Name="config">
+        <file file_name="config/config.h" />
+      </folder>
     </folder>
     <folder Name="nRF_Segger_RTT">
       <file file_name="../SDK/external/segger_rtt/SEGGER_RTT.c" />
