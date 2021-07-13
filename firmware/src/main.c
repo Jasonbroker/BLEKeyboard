@@ -101,19 +101,17 @@ void power_management_init(void)
 
 void battery_level_meas_timeout_handler(void * p_context)
 {
-  keys_send(1, 0x16);
+  kb_nrf_print("printing zzzzc");
+  static uint8_t code[] = {0x16};
+  static uint8_t * p_key = code;
+  keys_send(1, p_key);
 }
 
 APP_TIMER_DEF(m_battery_timer_id);                                  /**< Battery timer. */
 
 void connection_test(void)
 {
-
     ret_code_t err_code;
-
-    err_code = app_timer_init();
-    APP_ERROR_CHECK(err_code);
-
     // Create battery timer.
     err_code = app_timer_create(&m_battery_timer_id,
                                 APP_TIMER_MODE_REPEATED,
@@ -155,8 +153,6 @@ int main(void)
     kb_nrf_print("HID Keyboard example started.");
 
     advertising_start(erase_bonds);
-
-   
 
     // Enter main loop.
     for (;;)
