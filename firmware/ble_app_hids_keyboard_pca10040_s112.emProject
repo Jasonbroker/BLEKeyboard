@@ -15,8 +15,9 @@
       arm_simulator_memory_simulation_parameter="RWX 00000000,00100000,FFFFFFFF;RWX 20000000,00010000,CDCDCDCD"
       arm_target_device_name="nRF52832_xxAA"
       arm_target_interface_type="SWD"
+      c_additional_options="-D CONFIG_HEADER=&quot;config.h&quot;"
       c_preprocessor_definitions="APP_TIMER_V2;APP_TIMER_V2_RTC1_ENABLED;BOARD_PCA10040;CONFIG_GPIO_AS_PINRESET;FLOAT_ABI_HARD;INITIALIZE_USER_SECTIONS;NO_VTOR_CONFIG;NRF52;NRF52832_XXAA;NRF52_PAN_74;NRF_SD_BLE_API_VERSION=7;S112;SOFTDEVICE_PRESENT;"
-      c_user_include_directories="./src;./src/ble;./src/log;../SDK/components;../SDK/components/ble/ble_advertising;../SDK/components/ble/ble_dtm;../SDK/components/ble/ble_link_ctx_manager;../SDK/components/ble/ble_racp;../SDK/components/ble/ble_services/ble_ancs_c;../SDK/components/ble/ble_services/ble_ans_c;../SDK/components/ble/ble_services/ble_bas;../SDK/components/ble/ble_services/ble_bas_c;../SDK/components/ble/ble_services/ble_cscs;../SDK/components/ble/ble_services/ble_cts_c;../SDK/components/ble/ble_services/ble_dfu;../SDK/components/ble/ble_services/ble_dis;../SDK/components/ble/ble_services/ble_gls;../SDK/components/ble/ble_services/ble_hids;../SDK/components/ble/ble_services/ble_hrs;../SDK/components/ble/ble_services/ble_hrs_c;../SDK/components/ble/ble_services/ble_hts;../SDK/components/ble/ble_services/ble_ias;../SDK/components/ble/ble_services/ble_ias_c;../SDK/components/ble/ble_services/ble_lbs;../SDK/components/ble/ble_services/ble_lbs_c;../SDK/components/ble/ble_services/ble_lls;../SDK/components/ble/ble_services/ble_nus;../SDK/components/ble/ble_services/ble_nus_c;../SDK/components/ble/ble_services/ble_rscs;../SDK/components/ble/ble_services/ble_rscs_c;../SDK/components/ble/ble_services/ble_tps;../SDK/components/ble/common;../SDK/components/ble/nrf_ble_gatt;../SDK/components/ble/nrf_ble_qwr;../SDK/components/ble/peer_manager;../SDK/components/boards;../SDK/components/libraries/atomic;../SDK/components/libraries/atomic_fifo;../SDK/components/libraries/atomic_flags;../SDK/components/libraries/balloc;../SDK/components/libraries/bootloader/ble_dfu;../SDK/components/libraries/bsp;../SDK/components/libraries/button;../SDK/components/libraries/cli;../SDK/components/libraries/crc16;../SDK/components/libraries/crc32;../SDK/components/libraries/crypto;../SDK/components/libraries/csense;../SDK/components/libraries/csense_drv;../SDK/components/libraries/delay;../SDK/components/libraries/ecc;../SDK/components/libraries/experimental_section_vars;../SDK/components/libraries/experimental_task_manager;../SDK/components/libraries/fds;../SDK/components/libraries/fstorage;../SDK/components/libraries/gfx;../SDK/components/libraries/gpiote;../SDK/components/libraries/hardfault;../SDK/components/libraries/hci;../SDK/components/libraries/led_softblink;../SDK/components/libraries/log;../SDK/components/libraries/log/src;../SDK/components/libraries/low_power_pwm;../SDK/components/libraries/mem_manager;../SDK/components/libraries/memobj;../SDK/components/libraries/mpu;../SDK/components/libraries/mutex;../SDK/components/libraries/pwm;../SDK/components/libraries/pwr_mgmt;../SDK/components/libraries/queue;../SDK/components/libraries/ringbuf;../SDK/components/libraries/scheduler;../SDK/components/libraries/sdcard;../SDK/components/libraries/sensorsim;../SDK/components/libraries/slip;../SDK/components/libraries/sortlist;../SDK/components/libraries/spi_mngr;../SDK/components/libraries/stack_guard;../SDK/components/libraries/strerror;../SDK/components/libraries/svc;../SDK/components/libraries/timer;../SDK/components/libraries/twi_mngr;../SDK/components/libraries/twi_sensor;../SDK/components/libraries/usbd;../SDK/components/libraries/usbd/class/audio;../SDK/components/libraries/usbd/class/cdc;../SDK/components/libraries/usbd/class/cdc/acm;../SDK/components/libraries/usbd/class/hid;../SDK/components/libraries/usbd/class/hid/generic;../SDK/components/libraries/usbd/class/hid/kbd;../SDK/components/libraries/usbd/class/hid/mouse;../SDK/components/libraries/usbd/class/msc;../SDK/components/libraries/util;../SDK/components/nfc/ndef/conn_hand_parser;../SDK/components/nfc/ndef/conn_hand_parser/ac_rec_parser;../SDK/components/nfc/ndef/conn_hand_parser/ble_oob_advdata_parser;../SDK/components/nfc/ndef/conn_hand_parser/le_oob_rec_parser;../SDK/components/nfc/ndef/connection_handover/ac_rec;../SDK/components/nfc/ndef/connection_handover/ble_oob_advdata;../SDK/components/nfc/ndef/connection_handover/ble_pair_lib;../SDK/components/nfc/ndef/connection_handover/ble_pair_msg;../SDK/components/nfc/ndef/connection_handover/common;../SDK/components/nfc/ndef/connection_handover/ep_oob_rec;../SDK/components/nfc/ndef/connection_handover/hs_rec;../SDK/components/nfc/ndef/connection_handover/le_oob_rec;../SDK/components/nfc/ndef/generic/message;../SDK/components/nfc/ndef/generic/record;../SDK/components/nfc/ndef/launchapp;../SDK/components/nfc/ndef/parser/message;../SDK/components/nfc/ndef/parser/record;../SDK/components/nfc/ndef/text;../SDK/components/nfc/ndef/uri;../SDK/components/nfc/platform;../SDK/components/nfc/t2t_lib;../SDK/components/nfc/t2t_parser;../SDK/components/nfc/t4t_lib;../SDK/components/nfc/t4t_parser/apdu;../SDK/components/nfc/t4t_parser/cc_file;../SDK/components/nfc/t4t_parser/hl_detection_procedure;../SDK/components/nfc/t4t_parser/tlv;../SDK/components/softdevice/common;../SDK/components/softdevice/s112/headers;../SDK/components/softdevice/s112/headers/nrf52;../SDK/components/toolchain/cmsis/include;../SDK/external/fprintf;../SDK/external/segger_rtt;../SDK/external/utf_converter;../SDK/integration/nrfx;../SDK/integration/nrfx/legacy;../SDK/modules/nrfx;../SDK/modules/nrfx/drivers/include;../SDK/modules/nrfx/hal;../SDK/modules/nrfx/mdk"
+      c_user_include_directories="./src;./src/ble;./src/log;./config;./src/protocol;./tmk_core/common;../SDK/components;../SDK/components/ble/ble_advertising;../SDK/components/ble/ble_dtm;../SDK/components/ble/ble_link_ctx_manager;../SDK/components/ble/ble_racp;../SDK/components/ble/ble_services/ble_ancs_c;../SDK/components/ble/ble_services/ble_ans_c;../SDK/components/ble/ble_services/ble_bas;../SDK/components/ble/ble_services/ble_bas_c;../SDK/components/ble/ble_services/ble_cscs;../SDK/components/ble/ble_services/ble_cts_c;../SDK/components/ble/ble_services/ble_dfu;../SDK/components/ble/ble_services/ble_dis;../SDK/components/ble/ble_services/ble_gls;../SDK/components/ble/ble_services/ble_hids;../SDK/components/ble/ble_services/ble_hrs;../SDK/components/ble/ble_services/ble_hrs_c;../SDK/components/ble/ble_services/ble_hts;../SDK/components/ble/ble_services/ble_ias;../SDK/components/ble/ble_services/ble_ias_c;../SDK/components/ble/ble_services/ble_lbs;../SDK/components/ble/ble_services/ble_lbs_c;../SDK/components/ble/ble_services/ble_lls;../SDK/components/ble/ble_services/ble_nus;../SDK/components/ble/ble_services/ble_nus_c;../SDK/components/ble/ble_services/ble_rscs;../SDK/components/ble/ble_services/ble_rscs_c;../SDK/components/ble/ble_services/ble_tps;../SDK/components/ble/common;../SDK/components/ble/nrf_ble_gatt;../SDK/components/ble/nrf_ble_qwr;../SDK/components/ble/peer_manager;../SDK/components/boards;../SDK/components/libraries/atomic;../SDK/components/libraries/atomic_fifo;../SDK/components/libraries/atomic_flags;../SDK/components/libraries/balloc;../SDK/components/libraries/bootloader/ble_dfu;../SDK/components/libraries/bsp;../SDK/components/libraries/button;../SDK/components/libraries/cli;../SDK/components/libraries/crc16;../SDK/components/libraries/crc32;../SDK/components/libraries/crypto;../SDK/components/libraries/csense;../SDK/components/libraries/csense_drv;../SDK/components/libraries/delay;../SDK/components/libraries/ecc;../SDK/components/libraries/experimental_section_vars;../SDK/components/libraries/experimental_task_manager;../SDK/components/libraries/fds;../SDK/components/libraries/fstorage;../SDK/components/libraries/gfx;../SDK/components/libraries/gpiote;../SDK/components/libraries/hardfault;../SDK/components/libraries/hci;../SDK/components/libraries/led_softblink;../SDK/components/libraries/log;../SDK/components/libraries/log/src;../SDK/components/libraries/low_power_pwm;../SDK/components/libraries/mem_manager;../SDK/components/libraries/memobj;../SDK/components/libraries/mpu;../SDK/components/libraries/mutex;../SDK/components/libraries/pwm;../SDK/components/libraries/pwr_mgmt;../SDK/components/libraries/queue;../SDK/components/libraries/ringbuf;../SDK/components/libraries/scheduler;../SDK/components/libraries/sdcard;../SDK/components/libraries/sensorsim;../SDK/components/libraries/slip;../SDK/components/libraries/sortlist;../SDK/components/libraries/spi_mngr;../SDK/components/libraries/stack_guard;../SDK/components/libraries/strerror;../SDK/components/libraries/svc;../SDK/components/libraries/timer;../SDK/components/libraries/twi_mngr;../SDK/components/libraries/twi_sensor;../SDK/components/libraries/usbd;../SDK/components/libraries/usbd/class/audio;../SDK/components/libraries/usbd/class/cdc;../SDK/components/libraries/usbd/class/cdc/acm;../SDK/components/libraries/usbd/class/hid;../SDK/components/libraries/usbd/class/hid/generic;../SDK/components/libraries/usbd/class/hid/kbd;../SDK/components/libraries/usbd/class/hid/mouse;../SDK/components/libraries/usbd/class/msc;../SDK/components/libraries/util;../SDK/components/nfc/ndef/conn_hand_parser;../SDK/components/nfc/ndef/conn_hand_parser/ac_rec_parser;../SDK/components/nfc/ndef/conn_hand_parser/ble_oob_advdata_parser;../SDK/components/nfc/ndef/conn_hand_parser/le_oob_rec_parser;../SDK/components/nfc/ndef/connection_handover/ac_rec;../SDK/components/nfc/ndef/connection_handover/ble_oob_advdata;../SDK/components/nfc/ndef/connection_handover/ble_pair_lib;../SDK/components/nfc/ndef/connection_handover/ble_pair_msg;../SDK/components/nfc/ndef/connection_handover/common;../SDK/components/nfc/ndef/connection_handover/ep_oob_rec;../SDK/components/nfc/ndef/connection_handover/hs_rec;../SDK/components/nfc/ndef/connection_handover/le_oob_rec;../SDK/components/nfc/ndef/generic/message;../SDK/components/nfc/ndef/generic/record;../SDK/components/nfc/ndef/launchapp;../SDK/components/nfc/ndef/parser/message;../SDK/components/nfc/ndef/parser/record;../SDK/components/nfc/ndef/text;../SDK/components/nfc/ndef/uri;../SDK/components/nfc/platform;../SDK/components/nfc/t2t_lib;../SDK/components/nfc/t2t_parser;../SDK/components/nfc/t4t_lib;../SDK/components/nfc/t4t_parser/apdu;../SDK/components/nfc/t4t_parser/cc_file;../SDK/components/nfc/t4t_parser/hl_detection_procedure;../SDK/components/nfc/t4t_parser/tlv;../SDK/components/softdevice/common;../SDK/components/softdevice/s112/headers;../SDK/components/softdevice/s112/headers/nrf52;../SDK/components/toolchain/cmsis/include;../SDK/external/fprintf;../SDK/external/segger_rtt;../SDK/external/utf_converter;../SDK/integration/nrfx;../SDK/integration/nrfx/legacy;../SDK/modules/nrfx;../SDK/modules/nrfx/drivers/include;../SDK/modules/nrfx/hal;../SDK/modules/nrfx/mdk"
       debug_additional_load_file="../SDK/components/softdevice/s112/hex/s112_nrf52_7.2.0_softdevice.hex"
       debug_register_definition_file="../SDK/modules/nrfx/mdk/nrf52.svd"
       debug_start_from_entry_point_symbol="No"
@@ -91,10 +92,6 @@
       <file file_name="../SDK/modules/nrfx/drivers/src/nrfx_uart.c" />
       <file file_name="../SDK/modules/nrfx/drivers/src/nrfx_uarte.c" />
     </folder>
-    <folder Name="Board Support">
-      <file file_name="../SDK/components/libraries/bsp/bsp.c" />
-      <file file_name="../SDK/components/libraries/bsp/bsp_btn_ble.c" />
-    </folder>
     <folder Name="Application">
       <file file_name="./src/main.c" />
       <file file_name="./src/sdk_config.h" />
@@ -108,6 +105,12 @@
       </folder>
       <folder Name="config">
         <file file_name="config/config.h" />
+      </folder>
+      <folder Name="protocol">
+        <file file_name="src/protocol/wait_api.h" />
+        <file file_name="src/protocol/kb_nrf_keymap.c" />
+        <file file_name="src/protocol/kb_nrf_led.c" />
+        <file file_name="src/protocol/kb_nrf_matrix.c" />
       </folder>
     </folder>
     <folder Name="nRF_Segger_RTT">
@@ -150,6 +153,64 @@
       <file file_name="../SDK/components/softdevice/common/nrf_sdh_ble.c" />
       <file file_name="../SDK/components/softdevice/common/nrf_sdh_soc.c" />
     </folder>
+    <folder Name="tmk">
+      <file file_name="tmk_core/common/action.c" />
+      <file file_name="tmk_core/common/action.h" />
+      <file file_name="tmk_core/common/action_code.h" />
+      <file file_name="tmk_core/common/action_layer.c" />
+      <file file_name="tmk_core/common/action_layer.h" />
+      <file file_name="tmk_core/common/action_macro.c" />
+      <file file_name="tmk_core/common/action_macro.h" />
+      <file file_name="tmk_core/common/action_tapping.c" />
+      <file file_name="tmk_core/common/action_tapping.h" />
+      <file file_name="tmk_core/common/action_util.c" />
+      <file file_name="tmk_core/common/action_util.h" />
+      <file file_name="tmk_core/common/actionmap.c" />
+      <file file_name="tmk_core/common/actionmap.h" />
+      <file file_name="tmk_core/common/backlight.c" />
+      <file file_name="tmk_core/common/backlight.h" />
+      <file file_name="tmk_core/common/bootloader.h" />
+      <file file_name="tmk_core/common/bootmagic.c" />
+      <file file_name="tmk_core/common/bootmagic.h" />
+      <file file_name="tmk_core/common/command.c" />
+      <file file_name="tmk_core/common/command.h" />
+      <file file_name="tmk_core/common/debug.c" />
+      <file file_name="tmk_core/common/debug.h" />
+      <file file_name="tmk_core/common/eeconfig.h" />
+      <file file_name="tmk_core/common/hook.c" />
+      <file file_name="tmk_core/common/hook.h" />
+      <file file_name="tmk_core/common/host.c" />
+      <file file_name="tmk_core/common/host.h" />
+      <file file_name="tmk_core/common/host_driver.h" />
+      <file file_name="tmk_core/common/keyboard.c" />
+      <file file_name="tmk_core/common/keyboard.h" />
+      <file file_name="tmk_core/common/keycode.h" />
+      <file file_name="tmk_core/common/keymap.c" />
+      <file file_name="tmk_core/common/keymap.h" />
+      <file file_name="tmk_core/common/led.h" />
+      <file file_name="tmk_core/common/matrix.c" />
+      <file file_name="tmk_core/common/matrix.h" />
+      <file file_name="tmk_core/common/mousekey.c" />
+      <file file_name="tmk_core/common/mousekey.h" />
+      <file file_name="tmk_core/common/nodebug.h" />
+      <file file_name="tmk_core/common/print.c" />
+      <file file_name="tmk_core/common/print.h" />
+      <file file_name="tmk_core/common/progmem.h" />
+      <file file_name="tmk_core/common/report.h" />
+      <file file_name="tmk_core/common/ringbuf.h" />
+      <file file_name="tmk_core/common/sendchar.h" />
+      <file file_name="tmk_core/common/sendchar_null.c" />
+      <file file_name="tmk_core/common/sleep_led.h" />
+      <file file_name="tmk_core/common/suspend.h" />
+      <file file_name="tmk_core/common/timer.h" />
+      <file file_name="tmk_core/common/uart.h" />
+      <file file_name="tmk_core/common/unimap.c" />
+      <file file_name="tmk_core/common/unimap.h" />
+      <file file_name="tmk_core/common/util.c" />
+      <file file_name="tmk_core/common/util.h" />
+      <file file_name="tmk_core/common/wait.h" />
+    </folder>
+    <configuration Name="Debug" c_additional_options="" />
   </project>
   <configuration
     Name="Release"
