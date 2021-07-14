@@ -25,32 +25,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static matrix_row_t matrix[MATRIX_ROWS];
 
 /* should be called at early stage of startup before matrix_init.(optional) */
-//void matrix_setup(void)
-//{
+void matrix_setup(void)
+{
+}
+/* intialize matrix for scaning. */
+void matrix_init(void)
+{
+}
 
-//}
-///* intialize matrix for scaning. */
-//void matrix_init(void)
-//{
+/* scan all key states on matrix */
+uint8_t matrix_scan(void)
+{
+}
 
-//}
-///* scan all key states on matrix */
-//uint8_t matrix_scan(void)
-//{
+/* matrix state on row */
+matrix_row_t matrix_get_row(uint8_t row)
+{
+    return matrix[row];
+}
 
-//}
-
-///* matrix state on row */
-//matrix_row_t matrix_get_row(uint8_t row)
-//{
-//    return matrix[row];
-//{
-///* print matrix for debug */
-//void matrix_print(void)
-//{
-//}
-///* clear matrix */
-//void matrix_clear(void)
-//{
-//}
+/* print matrix for debug */
+void matrix_print(void)
+{
+}
+/* clear matrix */
+void matrix_clear(void)
+{
+}
 

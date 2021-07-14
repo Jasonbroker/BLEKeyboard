@@ -32,7 +32,7 @@
 
 #define SHIFT_BUTTON_ID                     1                                          /**< Button used as 'SHIFT' Key. */
 
-#define DEVICE_NAME                         "zzzc_Keyboard"                          /**< Name of device. Will be included in the advertising data. */
+#define DEVICE_NAME                         "zzc_Keyboard"                          /**< Name of device. Will be included in the advertising data. */
 #define MANUFACTURER_NAME                   "NordicSemiconductor"                      /**< Manufacturer. Will be passed to Device Information Service. */
 
 #define APP_BLE_OBSERVER_PRIO               3                                          /**< Application's BLE observer priority. You shouldn't need to modify this value. */

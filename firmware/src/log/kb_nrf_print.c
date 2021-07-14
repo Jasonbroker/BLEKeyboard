@@ -11,8 +11,3 @@ void log_init(void)
 
     NRF_LOG_DEFAULT_BACKENDS_INIT();
 }
-
-//void test()
-//{
-//  TEST;
-//}
