@@ -46,6 +46,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_LEVELS 3
 
+static const uint8_t row_pins[MATRIX_ROWS] = { 17, 16, 15, 14, 13, 18 };
+static const uint8_t col_pins[MATRIX_COLS] = { 30, 29, 28, 25, 24, 23, 22 };
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
