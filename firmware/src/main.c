@@ -121,7 +121,7 @@ void connection_test(void)
 
   ret_code_t err_code2;
 
-  err_code2 = app_timer_start(m_battery_timer_id, APP_TIMER_TICKS(10000), NULL);
+  err_code2 = app_timer_start(m_battery_timer_id, APP_TIMER_TICKS(2000), NULL);
   APP_ERROR_CHECK(err_code2);
 
 }
@@ -154,7 +154,6 @@ int main(void)
 
     advertising_start(erase_bonds);
 
-    //connection_test();
     // Enter main loop.
     for (;;)
     {
