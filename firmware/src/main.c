@@ -65,6 +65,7 @@
 #include "app_scheduler.h"
 #include "nrf_pwr_mgmt.h"
 #include "app_timer.h"
+#include "kb_nrf_driver.h"
 
 /**@brief Function for handling the idle state (main loop).
  *
@@ -154,9 +155,14 @@ int main(void)
 
     advertising_start(erase_bonds);
 
+    host_set_driver(&kb_nrf_driver);
+    keyboard_init();
+
     // Enter main loop.
     for (;;)
     {
+    // 不断扫描
+        keyboard_task();
         idle_state_handle();
     }
 }

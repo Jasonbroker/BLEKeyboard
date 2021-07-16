@@ -157,3 +157,7 @@ static void select_row(uint8_t row)
     nrf_gpio_cfg((uint32_t)row_pins[row], NRF_GPIO_PIN_DIR_OUTPUT, NRF_GPIO_PIN_INPUT_DISCONNECT, NRF_GPIO_PIN_NOPULL, NRF_GPIO_PIN_H0H1, NRF_GPIO_PIN_NOSENSE);
     nrf_gpio_pin_clear((uint32_t)row_pins[row]);
 }
+
+void matrix_print(void)
+{
+}

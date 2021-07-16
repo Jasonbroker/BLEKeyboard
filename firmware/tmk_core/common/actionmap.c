@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* Keymapping with 16bit action codes */
-extern const action_t actionmaps[][MATRIX_ROWS][MATRIX_COLS];
+const action_t actionmaps[][MATRIX_ROWS][MATRIX_COLS];
 
 
 /* Converts key to action */
