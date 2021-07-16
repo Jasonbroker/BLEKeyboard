@@ -15,6 +15,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#define KB_NRF_DEBUG
+
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
@@ -25,14 +27,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     RCRD keyboard firmware for template
 
 /* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 8
+#define MATRIX_ROWS 2
+#define MATRIX_COLS 2
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
+#define DEBOUNCE    0
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -46,8 +48,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_LEVELS 3
 
-static const uint8_t row_pins[MATRIX_ROWS] = { 17, 16, 15, 14, 13, 18 };
-static const uint8_t col_pins[MATRIX_COLS] = { 30, 29, 28, 25, 24, 23, 22 };
+static const uint8_t row_pins[MATRIX_ROWS] = {7, 8};
+static const uint8_t col_pins[MATRIX_COLS] = {9, 10};
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

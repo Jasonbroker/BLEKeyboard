@@ -128,8 +128,9 @@ void connection_test(void)
 
 }
 
-void keyboard_scan_handler(void)
+static void keyboard_scan_handler(void* p_context)
 {
+    //kb_nrf_print("scaning");
     keyboard_task();
 }
 
@@ -139,10 +140,10 @@ void init_and_start_scan_timer(void)
 {
     ret_code_t err_code = app_timer_create(&m_keyboard_scan_timer_id,
         APP_TIMER_MODE_REPEATED,
-        &keyboard_scan_handler);
+        keyboard_scan_handler);
     APP_ERROR_CHECK(err_code);
 
-    err_code = app_timer_start(m_keyboard_scan_timer_id,  APP_TIMER_TICKS(10), NULL);
+    err_code = app_timer_start(m_keyboard_scan_timer_id,  APP_TIMER_TICKS(20), NULL);
     APP_ERROR_CHECK(err_code);
 
 }
@@ -177,14 +178,15 @@ int main(void)
 
     advertising_start(erase_bonds);
 
-    host_set_driver(&kb_nrf_driver);
     keyboard_init();
+    host_set_driver(&kb_nrf_driver);
     init_and_start_scan_timer();
+
+
+
     // Enter main loop.
     for (;;)
     {
-    // 不断扫描
-        
         idle_state_handle();
     }
 }

@@ -20,8 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "nrf_gpio.h"
 #include "wait.h"
-#ifdef CONFIG_HEADER
-#include CONFIG_HEADER
+#include "config.h"
+
+#ifdef KB_NRF_DEBUG
+  #include "kb_nrf_print.h"
 #endif
 
 /*
@@ -71,6 +73,9 @@ static void  init_cols(void)
 
 void matrix_init(void)
 {
+  #ifdef KB_NRF_DEBUG
+    kb_nrf_print("matrix init");
+  #endif 
     // initialize row and col
     unselect_rows();
     init_cols();
@@ -89,14 +94,18 @@ uint8_t matrix_scan(void)
         select_row(i);
         wait_us(30);  // without this wait read unstable value.
         matrix_row_t cols = read_cols();
+        kb_nrf_print("read %x", cols);
         if (matrix_debouncing[i] != cols) {
             matrix_debouncing[i] = cols;
             if (debouncing) {
+              #ifdef KB_NRF_DEBUG
+                kb_nrf_print("matrix change");
+              #endif 
                 //debug("bounce!: "); debug_hex(debouncing); debug("\n");
             }
             debouncing = DEBOUNCE;
         }
-        unselect_rows();
+        unselect_row(i);
     }
 
     if (debouncing) {

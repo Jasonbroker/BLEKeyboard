@@ -108,11 +108,12 @@
       </folder>
       <folder Name="protocol">
         <file file_name="src/protocol/wait_api.h" />
-        <file file_name="src/protocol/kb_nrf_keymap.c" />
         <file file_name="src/protocol/kb_nrf_led.c" />
         <file file_name="src/protocol/kb_nrf_matrix.c" />
         <file file_name="src/protocol/timer.c" />
         <file file_name="src/protocol/bootloader.c" />
+        <file file_name="src/protocol/keymap_plain.c" />
+        <file file_name="src/protocol/keymap_common.h" />
       </folder>
       <configuration
         Name="Common"
