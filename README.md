@@ -18,6 +18,8 @@ This version contains is the source code for a sample application using the HID,
  * Pressing Button 0 will send text 'hello' to the connected peer. On receiving output report,
  * it toggles the state of LED 2 on the mother board based on whether or not Caps Lock is on.
  * This application uses the @ref app_scheduler.
+ v0.5
+add tmk_core lib and finish basic feature.
 
 # BLEKeyboard
 使用NRF52832、52810 蓝牙5.0 键盘主控固件
@@ -38,3 +40,4 @@ This version contains is the source code for a sample application using the HID,
 
 ## version history
 v0.1 文件结构化、用nordic实例项目用作初始化
+v0.5 移植tmk键盘控制逻辑
