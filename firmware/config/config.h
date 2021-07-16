@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    0
+#define DEBOUNCE    1
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -48,8 +48,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_LEVELS 3
 
-static const uint8_t row_pins[MATRIX_ROWS] = {7, 8};
-static const uint8_t col_pins[MATRIX_COLS] = {9, 10};
+static const uint8_t row_pins[MATRIX_ROWS] = {27, 26};
+static const uint8_t col_pins[MATRIX_COLS] = {22, 23};
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

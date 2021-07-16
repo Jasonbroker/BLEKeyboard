@@ -94,13 +94,18 @@ uint8_t matrix_scan(void)
         select_row(i);
         wait_us(30);  // without this wait read unstable value.
         matrix_row_t cols = read_cols();
-        kb_nrf_print("read %x", cols);
+
+        #ifdef  KB_NRF_DEBUG
+        if (cols > 0) {
+            kb_nrf_print("read row %d pin %d val %x", i, row_pins[i], cols);
+        } else {
+           kb_nrf_print("read row %d val %x", i, cols);
+        }
+        #endif
+
         if (matrix_debouncing[i] != cols) {
             matrix_debouncing[i] = cols;
             if (debouncing) {
-              #ifdef KB_NRF_DEBUG
-                kb_nrf_print("matrix change");
-              #endif 
                 //debug("bounce!: "); debug_hex(debouncing); debug("\n");
             }
             debouncing = DEBOUNCE;
@@ -169,4 +174,7 @@ static void select_row(uint8_t row)
 
 void matrix_print(void)
 {
+    #ifdef KB_NRF_DEBUG
+      kb_nrf_print("matrix changed");
+    #endif 
 }
