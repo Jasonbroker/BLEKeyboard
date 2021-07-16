@@ -26,7 +26,7 @@ static uint8_t keyboard_leds(void)
 }
 static void send_keyboard(report_keyboard_t *report)
 {
-    sendReport(*report);
+    kb_send_report(report);
 }
 static void send_mouse(report_mouse_t *report)
 {

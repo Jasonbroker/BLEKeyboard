@@ -2,4 +2,4 @@
 #include "report.h"
 #include <stdbool.h>
 
-bool sendReport(report_keyboard_t report);
+bool kb_send_report(report_keyboard_t *report);

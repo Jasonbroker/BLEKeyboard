@@ -66,6 +66,7 @@
 #include "nrf_pwr_mgmt.h"
 #include "app_timer.h"
 #include "kb_nrf_driver.h"
+#include "keyboard.h"
 
 /**@brief Function for handling the idle state (main loop).
  *
@@ -127,6 +128,27 @@ void connection_test(void)
 
 }
 
+void keyboard_scan_handler(void)
+{
+    keyboard_task();
+}
+
+APP_TIMER_DEF(m_keyboard_scan_timer_id);
+
+void init_and_start_scan_timer(void)
+{
+    ret_code_t err_code = app_timer_create(&m_keyboard_scan_timer_id,
+        APP_TIMER_MODE_REPEATED,
+        &keyboard_scan_handler);
+    APP_ERROR_CHECK(err_code);
+
+    err_code = app_timer_start(m_keyboard_scan_timer_id,  APP_TIMER_TICKS(10), NULL);
+    APP_ERROR_CHECK(err_code);
+
+}
+
+
+
 
 int main(void)
 {
@@ -157,12 +179,12 @@ int main(void)
 
     host_set_driver(&kb_nrf_driver);
     keyboard_init();
-
+    init_and_start_scan_timer();
     // Enter main loop.
     for (;;)
     {
     // 不断扫描
-        keyboard_task();
+        
         idle_state_handle();
     }
 }

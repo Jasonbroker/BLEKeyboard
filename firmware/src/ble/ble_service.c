@@ -640,10 +640,10 @@ void conn_params_init(void)
  *             will be transmitted.
  */
  uint32_t send_key_scan_press_release(ble_hids_t * p_hids,
-                                            uint8_t    * p_key_pattern,
-                                            uint16_t     pattern_len,
-                                            uint16_t     pattern_offset,
-                                            uint16_t   * p_actual_len)
+                                      uint8_t    * p_key_pattern,
+                                      uint16_t     pattern_len,
+                                      uint16_t     pattern_offset,
+                                      uint16_t   * p_actual_len)
 {
     ret_code_t err_code;
     uint16_t offset;
@@ -843,11 +843,11 @@ void keys_send(uint8_t key_pattern_len, uint8_t * p_key_pattern)
     ret_code_t err_code;
     uint16_t actual_len;
 
-    err_code = send_key_scan_press_release(&m_hids,
-                                           p_key_pattern,
-                                           key_pattern_len,
-                                           0,
-                                           &actual_len);
+    err_code = kb_nrf_send_key(&m_hids,
+                               p_key_pattern,
+                               key_pattern_len,
+                               0,
+                               &actual_len);
     // An additional notification is needed for release of all keys, therefore check
     // is for actual_len <= key_pattern_len and not actual_len < key_pattern_len.
     if ((err_code == NRF_ERROR_RESOURCES) && (actual_len <= key_pattern_len))
