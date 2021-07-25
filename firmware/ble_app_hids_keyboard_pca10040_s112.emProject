@@ -177,8 +177,12 @@
       <file file_name="tmk_core/common/action_tapping.h" />
       <file file_name="tmk_core/common/action_util.c" />
       <file file_name="tmk_core/common/action_util.h" />
-      <file file_name="tmk_core/common/actionmap.c" />
-      <file file_name="tmk_core/common/actionmap.h" />
+      <file file_name="tmk_core/common/actionmap.c">
+        <configuration Name="Debug" build_exclude_from_build="Yes" />
+      </file>
+      <file file_name="tmk_core/common/actionmap.h">
+        <configuration Name="Debug" build_exclude_from_build="Yes" />
+      </file>
       <file file_name="tmk_core/common/backlight.c" />
       <file file_name="tmk_core/common/backlight.h" />
       <file file_name="tmk_core/common/bootloader.h" />
@@ -216,14 +220,23 @@
       <file file_name="tmk_core/common/suspend.h" />
       <file file_name="tmk_core/common/timer.h" />
       <file file_name="tmk_core/common/uart.h" />
-      <file file_name="tmk_core/common/unimap.c" />
-      <file file_name="tmk_core/common/unimap.h" />
+      <file file_name="tmk_core/common/unimap.c">
+        <configuration Name="Debug" build_exclude_from_build="Yes" />
+      </file>
+      <file file_name="tmk_core/common/unimap.h">
+        <configuration Name="Debug" build_exclude_from_build="Yes" />
+      </file>
       <file file_name="tmk_core/common/util.c" />
       <file file_name="tmk_core/common/util.h" />
       <file file_name="tmk_core/common/wait.h" />
       <configuration
         Name="Common"
-        c_preprocessor_definitions="CONFIG_HEADER &quot;config.h&quot;;NO_DEBUG;NO_ACTION_LAYER" />
+        c_preprocessor_definitions="CONFIG_HEADER &quot;config.h&quot;;NO_ACTION_LAYER" />
+      <configuration
+        Name="Debug"
+        c_preprocessor_definitions=""
+        c_preprocessor_undefinitions="" />
+      <configuration Name="Release" c_preprocessor_definitions="NO_DEBUG" />
     </folder>
     <configuration Name="Debug" c_additional_options="" />
   </project>

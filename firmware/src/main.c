@@ -143,7 +143,7 @@ void init_and_start_scan_timer(void)
         keyboard_scan_handler);
     APP_ERROR_CHECK(err_code);
 
-    err_code = app_timer_start(m_keyboard_scan_timer_id,  APP_TIMER_TICKS(1000), NULL);
+    err_code = app_timer_start(m_keyboard_scan_timer_id,  APP_TIMER_TICKS(10), NULL);
     APP_ERROR_CHECK(err_code);
 
 }

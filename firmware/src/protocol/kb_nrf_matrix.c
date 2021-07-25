@@ -95,14 +95,6 @@ uint8_t matrix_scan(void)
         wait_us(30);  // without this wait read unstable value.
         matrix_row_t cols = read_cols();
 
-        #ifdef  KB_NRF_DEBUG
-        if (cols > 0) {
-            kb_nrf_print("read row %d pin %d val %x", i, row_pins[i], cols);
-        } else {
-           kb_nrf_print("read row %d val %x", i, cols);
-        }
-        #endif
-
         if (matrix_debouncing[i] != cols) {
             matrix_debouncing[i] = cols;
             if (debouncing) {

@@ -645,54 +645,23 @@ void conn_params_init(void)
                                       uint16_t     pattern_offset,
                                       uint16_t   * p_actual_len)
 {
-    ret_code_t err_code;
-    uint16_t offset;
-    uint16_t data_len;
-    uint8_t  data[INPUT_REPORT_KEYS_MAX_LEN];
-
-    // HID Report Descriptor enumerates an array of size 6, the pattern hence shall not be any
-    // longer than this.
-    STATIC_ASSERT((INPUT_REPORT_KEYS_MAX_LEN - 2) == 6);
-
-    ASSERT(pattern_len <= (INPUT_REPORT_KEYS_MAX_LEN - 2));
-
-    offset   = pattern_offset;
-    data_len = pattern_len;
-
-    do
-    {
-        // Reset the data buffer.
-        memset(data, 0, sizeof(data));
-
-        // Copy the scan code.
-        memcpy(data + SCAN_CODE_POS + offset, p_key_pattern + offset, data_len - offset);
-
-        if (!m_in_boot_mode)
-        {
-            err_code = ble_hids_inp_rep_send(p_hids,
-                                             INPUT_REPORT_KEYS_INDEX,
-                                             INPUT_REPORT_KEYS_MAX_LEN,
-                                             data,
-                                             m_conn_handle);
-        }
-        else
-        {
+    ret_code_t err_code = NRF_SUCCESS;
+    uint8_t index = 0;
+    if (m_in_boot_mode) {
+        if (index == 0) {
             err_code = ble_hids_boot_kb_inp_rep_send(p_hids,
-                                                     INPUT_REPORT_KEYS_MAX_LEN,
-                                                     data,
-                                                     m_conn_handle);
+                pattern_len,
+                p_key_pattern,
+                m_conn_handle);
         }
-
-        if (err_code != NRF_SUCCESS)
-        {
-            break;
-        }
-
-        offset++;
+    } else {
+        err_code = ble_hids_inp_rep_send(p_hids,
+            index,
+            pattern_len,
+            p_key_pattern,
+            m_conn_handle);
     }
-    while (offset <= data_len);
-
-    *p_actual_len = offset;
+    return err_code;
 
     return err_code;
 }
@@ -843,7 +812,7 @@ void keys_send(uint8_t key_pattern_len, uint8_t * p_key_pattern)
     ret_code_t err_code;
     uint16_t actual_len;
 
-    err_code = kb_nrf_send_key(&m_hids,
+    err_code = send_key_scan_press_release(&m_hids,
                                p_key_pattern,
                                key_pattern_len,
                                0,
