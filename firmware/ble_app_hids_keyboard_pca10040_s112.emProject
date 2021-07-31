@@ -234,7 +234,7 @@
         c_preprocessor_definitions="CONFIG_HEADER &quot;config.h&quot;;NO_ACTION_LAYER" />
       <configuration
         Name="Debug"
-        c_preprocessor_definitions=""
+        c_preprocessor_definitions="NO_PRINT"
         c_preprocessor_undefinitions="" />
       <configuration Name="Release" c_preprocessor_definitions="NO_DEBUG" />
     </folder>
