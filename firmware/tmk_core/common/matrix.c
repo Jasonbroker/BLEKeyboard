@@ -16,9 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "print.h"
 #include "matrix.h"
-#ifdef CONFIG_HEADER
-#include CONFIG_HEADER
-#endif
 
 __attribute__ ((weak))
 uint8_t matrix_rows(void)

@@ -18,6 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef MATRIX_H
 #define MATRIX_H
 
+#ifdef CONFIG_HEADER
+#include CONFIG_HEADER
+#endif
+
 #include <stdint.h>
 #include <stdbool.h>
 
