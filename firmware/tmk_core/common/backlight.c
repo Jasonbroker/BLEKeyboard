@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "eeconfig.h"
 #include "debug.h"
 #ifdef CONFIG_HEADER
-#include CONFIG_HEADER
+#include "config.h"
 #endif
 backlight_config_t backlight_config;
 

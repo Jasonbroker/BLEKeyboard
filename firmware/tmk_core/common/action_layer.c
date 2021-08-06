@@ -5,7 +5,7 @@
 #include "action_layer.h"
 #include "hook.h"
 #ifdef CONFIG_HEADER
-#include CONFIG_HEADER
+#include "config.h"
 #endif
 
 #ifdef DEBUG_ACTION

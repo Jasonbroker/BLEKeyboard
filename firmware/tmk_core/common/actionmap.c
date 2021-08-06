@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_code.h"
 #include "actionmap.h"
 #ifdef CONFIG_HEADER
-#include CONFIG_HEADER
+#include "config.h"
 #endif
 
 /* Keymapping with 16bit action codes */

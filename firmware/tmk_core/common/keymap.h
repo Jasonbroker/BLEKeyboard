@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include "action.h"
 #ifdef CONFIG_HEADER
-  #include CONFIG_HEADER
+  #include "config.h"
 #endif
 
 #ifdef BOOTMAGIC_ENABLE

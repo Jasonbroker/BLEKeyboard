@@ -6,7 +6,7 @@
 #   include <avr/pgmspace.h>
 #endif
 #ifdef CONFIG_HEADER
-#include CONFIG_HEADER
+#include "config.h"
 #endif
 
 /* Keymapping with 16bit action codes */

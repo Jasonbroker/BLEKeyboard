@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_H
 
 #ifdef CONFIG_HEADER
-#include CONFIG_HEADER
+#include "config.h"
 #endif
 
 #include <stdint.h>
