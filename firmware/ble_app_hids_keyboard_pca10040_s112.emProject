@@ -73,6 +73,7 @@
       <file file_name="../SDK/components/libraries/sortlist/nrf_sortlist.c" />
       <file file_name="../SDK/components/libraries/strerror/nrf_strerror.c" />
       <file file_name="../SDK/components/libraries/sensorsim/sensorsim.c" />
+      <file file_name="../SDK/modules/nrfx/drivers/src/nrfx_saadc.c" />
     </folder>
     <folder Name="None">
       <file file_name="../SDK/modules/nrfx/mdk/ses_startup_nrf52.s" />
@@ -123,6 +124,10 @@
         <file file_name="src/driver/kb_nrf_driver.c" />
         <file file_name="src/driver/kb_nrf_keyboard.h" />
         <file file_name="src/driver/kb_nrf_keyboard.c" />
+      </folder>
+      <folder Name="powermgr">
+        <file file_name="src/powermgr/powermgr.c" />
+        <file file_name="src/powermgr/powermgr.h" />
       </folder>
     </folder>
     <folder Name="nRF_Segger_RTT">
