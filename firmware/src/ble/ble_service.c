@@ -271,9 +271,11 @@ void pm_evt_handler(pm_evt_t const * p_evt)
     {
         case PM_EVT_CONN_SEC_SUCCEEDED:
             m_peer_id = p_evt->peer_id;
+            kb_nrf_print("ble connection succeeded");
             break;
 
         case PM_EVT_PEERS_DELETE_SUCCEEDED:
+            kb_nrf_print("ble peers delete succeeded");
             advertising_start(false);
             break;
 
@@ -303,6 +305,7 @@ void pm_evt_handler(pm_evt_t const * p_evt)
  */
 void service_error_handler(uint32_t nrf_error)
 {
+    kb_nrf_print("ble service error");
     APP_ERROR_HANDLER(nrf_error);
 }
 
@@ -313,6 +316,7 @@ void service_error_handler(uint32_t nrf_error)
  */
 void ble_advertising_error_handler(uint32_t nrf_error)
 {
+    kb_nrf_print("ble service error");
     APP_ERROR_HANDLER(nrf_error);
 }
 
@@ -954,6 +958,7 @@ void on_adv_evt(ble_adv_evt_t ble_adv_evt)
             break;
 
         case BLE_ADV_EVT_IDLE:
+        kb_nrf_print("ble idle");
             sleep_mode_enter();
             break;
 
@@ -967,7 +972,7 @@ void on_adv_evt(ble_adv_evt_t ble_adv_evt)
             err_code = pm_whitelist_get(whitelist_addrs, &addr_cnt,
                                         whitelist_irks,  &irk_cnt);
             APP_ERROR_CHECK(err_code);
-            kb_nrf_dprint("pm_whitelist_get returns %d addr in whitelist and %d irk whitelist",
+            kb_nrf_print("pm_whitelist_get returns %d addr in whitelist and %d irk whitelist",
                           addr_cnt, irk_cnt);
 
             // Set the correct identities list (no excluding peers with no Central Address Resolution).

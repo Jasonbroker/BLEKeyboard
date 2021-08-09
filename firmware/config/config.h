@@ -47,6 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 )
 
 #define BACKLIGHT_LEVELS 3
+#define BATTERY_PIN NRF_SAADC_INPUT_AIN0
 
 static const uint8_t row_pins[MATRIX_ROWS] = {25, 26, 27, 28, 29, 30};
 static const uint8_t col_pins[MATRIX_COLS] = {20, 19, 16, 15, 14, 13, 12, 11, 10, 24, 23, 7, 6, 5};

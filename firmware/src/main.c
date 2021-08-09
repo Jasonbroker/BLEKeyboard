@@ -67,6 +67,7 @@
 #include "app_timer.h"
 #include "kb_nrf_driver.h"
 #include "keyboard.h"
+#include "powermgr/powermgr.h"
 
 /**@brief Function for handling the idle state (main loop).
  *
@@ -101,36 +102,8 @@ void power_management_init(void)
     APP_ERROR_CHECK(err_code);
 }
 
-void battery_level_meas_timeout_handler(void * p_context)
-{
-  kb_nrf_print("printing zzzzc");
-  static uint8_t code[] = {0x16};
-  static uint8_t * p_key = code;
-  keys_send(1, p_key);
-}
-
-APP_TIMER_DEF(m_battery_timer_id);                                  /**< Battery timer. */
-
-void connection_test(void)
-{
-    ret_code_t err_code;
-    // Create battery timer.
-    err_code = app_timer_create(&m_battery_timer_id,
-                                APP_TIMER_MODE_REPEATED,
-                                battery_level_meas_timeout_handler);
-    APP_ERROR_CHECK(err_code);
-
-
-  ret_code_t err_code2;
-
-  err_code2 = app_timer_start(m_battery_timer_id, APP_TIMER_TICKS(2000), NULL);
-  APP_ERROR_CHECK(err_code2);
-
-}
-
 static void keyboard_scan_handler(void* p_context)
 {
-    //kb_nrf_print("scaning");
     keyboard_task();
 }
 
@@ -153,7 +126,7 @@ void init_and_start_scan_timer(void)
 
 int main(void)
 {
-    bool erase_bonds;
+    bool erase_bonds = false;
 
     // Initialize.
     log_init();
@@ -173,6 +146,7 @@ int main(void)
     buffer_init();
     peer_manager_init();
 
+
     // Start execution.
     kb_nrf_print("HID Keyboard example started.");
 
@@ -181,7 +155,8 @@ int main(void)
     keyboard_init();
     host_set_driver(&kb_nrf_driver);
     init_and_start_scan_timer();
-
+    kb_power_mgr_init();
+    kb_power_mgr_start();
 
 
     // Enter main loop.
