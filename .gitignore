@@ -1,1 +1,4 @@
 firmware/Output/
+*.jlink
+*.emSession
+
