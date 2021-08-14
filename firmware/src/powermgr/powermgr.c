@@ -57,7 +57,7 @@ static void adc_result_handler(nrf_saadc_value_t value)
         trans_persentage(voltage);
         // ble upate
         // todo 
-        kb_nrf_print("voltage %d percent %d%%", voltage, percentage);
+        //kb_nrf_print("voltage %d percent %d%%", voltage, percentage);
 }
 
 void adc_evt_cb(nrfx_saadc_evt_t const* event)
@@ -76,7 +76,6 @@ void adc_evt_cb(nrfx_saadc_evt_t const* event)
     // get average result
     for (uint8_t j = 0; j < SAMPLES_IN_BUFFER; j++) {
         result += event->data.done.p_buffer[j];
-        kb_nrf_print("value %d", result);
     }
     
 
@@ -106,7 +105,7 @@ static void saadc_init()
 
 void battery_level_meas_timeout_handler(void * p_context)
 {
-    kb_nrf_print("measure ");
+    //kb_nrf_print("measure ");
   // forbid reenter
     bool measure_started = true;
 
