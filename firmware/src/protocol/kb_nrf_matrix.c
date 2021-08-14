@@ -72,19 +72,22 @@ static void  init_cols(void)
 }
 
 void matrix_init(void)
-{
+{   
   #ifdef KB_NRF_DEBUG
     kb_nrf_print("matrix init");
   #endif 
     // initialize row and col
     unselect_rows();
     init_cols();
-
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
         matrix_debouncing[i] = 0;
     }
+
+        nrf_gpio_cfg_output(30);
+        nrf_gpio_pin_clear(30);
+
 
 }
 

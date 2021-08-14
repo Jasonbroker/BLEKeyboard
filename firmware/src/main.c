@@ -68,6 +68,7 @@
 #include "kb_nrf_driver.h"
 #include "keyboard.h"
 #include "powermgr/powermgr.h"
+#include "kb_rgb.h"
 
 /**@brief Function for handling the idle state (main loop).
  *
@@ -158,6 +159,8 @@ int main(void)
     kb_power_mgr_init();
     kb_power_mgr_start();
 
+    // 启动rgb灯效
+    rgb3741_twi_init();
 
     // Enter main loop.
     for (;;)
