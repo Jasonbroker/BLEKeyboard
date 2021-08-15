@@ -4,6 +4,7 @@
 #include "config.h"
 #include "kb_nrf_print.h"
 #include "app_timer.h"
+#include "rgb_matrix.h"
 
 void timeout_handler()
 {
@@ -33,16 +34,7 @@ void common_test()
 
 static void flush(void) { IS31FL3741_update_pwm_buffers(DRIVER_ADDR_1, DRIVER_ADDR_2); }
 
-typedef struct {
-    /* Perform any initialisation required for the other driver functions to work. */
-    void (*init)(void);
-    /* Set the colour of a single LED in the buffer. */
-    void (*set_color)(int index, uint8_t r, uint8_t g, uint8_t b);
-    /* Set the colour of all LEDS on the keyboard in the buffer. */
-    void (*set_color_all)(uint8_t r, uint8_t g, uint8_t b);
-    /* Flush any buffered changes to the hardware. */
-    void (*flush)(void);
-} rgb_matrix_driver_t;
+
 
 void init();
 
@@ -53,8 +45,6 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color_all = IS31FL3741_set_color_all,
 };
 
-
-static nrfx_twi_t* twi_channel;
 
 void init()
 {
@@ -69,4 +59,44 @@ void init()
     }
 
     IS31FL3741_update_led_control_registers(DRIVER_ADDR_1, 0);
+}
+
+void rgb_matrix_init()
+{
+      rgb_matrix_driver.init();
+}
+
+void rgb_matrix_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    rgb_matrix_driver.set_color(index, red, green, blue);
+}
+
+void rgb_matrix_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
+    rgb_matrix_driver.set_color_all(red, green, blue);
+}
+
+void rgb_matrix_update_pwm_buffers(void) { rgb_matrix_driver.flush(); }
+
+void rgb_matrix_test(void) {
+  rgb_matrix_set_color_all(20, 20, 20);
+    // Mask out bits 4 and 5
+    // Increase the factor to make the test animation slower (and reduce to make it faster)
+    //uint8_t factor = 10;
+    //switch ((g_rgb_timer & (0b11 << factor)) >> factor) {
+    //    case 0: {
+    //        rgb_matrix_set_color_all(20, 0, 0);
+    //        break;
+    //    }
+    //    case 1: {
+    //        rgb_matrix_set_color_all(0, 20, 0);
+    //        break;
+    //    }
+    //    case 2: {
+    //        rgb_matrix_set_color_all(0, 0, 20);
+    //        break;
+    //    }
+    //    case 3: {
+    //        rgb_matrix_set_color_all(20, 20, 20);
+    //        break;
+    //    }
+    //}
 }

@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "nrf_gpio.h"
 #include "wait.h"
 #include "config.h"
+#include "kb_rgb.h"
 
 #ifdef KB_NRF_DEBUG
   #include "kb_nrf_print.h"
@@ -88,6 +89,7 @@ void matrix_init(void)
         nrf_gpio_cfg_output(30);
         nrf_gpio_pin_clear(30);
 
+  rgb_matrix_init();
 
 }
 
@@ -117,7 +119,8 @@ uint8_t matrix_scan(void)
             }
         }
     }
-
+    
+    rgb_matrix_test();
     return 1;
 }
 

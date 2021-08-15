@@ -96,7 +96,7 @@ static const uint8_t col_pins[MATRIX_COLS] = {29, 28, 27, 26, 25, 24, 23, 22, 21
 #    define DRIVER_COUNT 1
 
 // led defines
-#    define DRIVER_1_LED_TOTAL 68
+#    define DRIVER_1_LED_TOTAL 87
 #    define DRIVER_2_LED_TOTAL 0
 #    define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL)
 #define DRIVER_INDICATOR_LED_TOTAL 0

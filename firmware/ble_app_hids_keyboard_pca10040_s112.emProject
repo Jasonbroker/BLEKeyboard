@@ -150,6 +150,8 @@
         <folder Name="rgb">
           <file file_name="src/peripheral/rgb/kb_rgb.h" />
           <file file_name="src/peripheral/rgb/kb_rgb.c" />
+          <file file_name="src/protocol/rgb_matrix.c" />
+          <file file_name="src/protocol/rgb_matrix.h" />
         </folder>
       </folder>
     </folder>
