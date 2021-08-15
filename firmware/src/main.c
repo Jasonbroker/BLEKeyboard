@@ -159,9 +159,6 @@ int main(void)
     kb_power_mgr_init();
     kb_power_mgr_start();
 
-    // 启动rgb灯效
-    rgb3741_twi_init();
-
     // Enter main loop.
     for (;;)
     {

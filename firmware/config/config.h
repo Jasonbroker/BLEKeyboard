@@ -12,11 +12,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "stdint.h"
+
 #ifndef CONFIG_H
 #define CONFIG_H
 
 #define KB_NRF_DEBUG
-
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
@@ -69,4 +70,35 @@ static const uint8_t col_pins[MATRIX_COLS] = {29, 28, 27, 26, 25, 24, 23, 22, 21
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
+#define  RGB_MATRIX_ENABLE
+// rgb 
+#ifdef RGB_MATRIX_ENABLE
+// #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+// #    define RGB_MATRIX_KEYPRESSES
+#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_RAINDROPS
+
+// #    define DEBUG_MATRIX_SCAN_RATE
+
+#    define RGB_MATRIX_LED_FLUSH_LIMIT 100
+// #    define RGB_MATRIX_LED_PROCESS_LIMIT 2
+
+// i2c_master defines
+#    define I2C_COUNT 1
+
+#    define I2C1_BANK GPIOB
+#    define I2C1_SCL 4 // A2 on pinout = B0
+#    define I2C1_SDA 3 // A2 on pinout = B1
+#    define I2C1_SCL_PAL_MODE PAL_MODE_ALTERNATIVE_2
+#    define I2C1_SDA_PAL_MODE PAL_MODE_ALTERNATIVE_2
+
+#    define DRIVER_ADDR_1 (0x30>>1)
+#    define DRIVER_ADDR_2 DRIVER_ADDR_1
+#    define DRIVER_COUNT 1
+
+// led defines
+#    define DRIVER_1_LED_TOTAL 68
+#    define DRIVER_2_LED_TOTAL 0
+#    define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL)
+#define DRIVER_INDICATOR_LED_TOTAL 0
+#endif
 #endif
