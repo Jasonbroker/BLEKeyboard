@@ -78,6 +78,7 @@ void rgb_matrix_update_pwm_buffers(void) { rgb_matrix_driver.flush(); }
 
 void rgb_matrix_test(void) {
   rgb_matrix_set_color_all(20, 20, 20);
+  rgb_matrix_update_pwm_buffers();
     // Mask out bits 4 and 5
     // Increase the factor to make the test animation slower (and reduce to make it faster)
     //uint8_t factor = 10;
