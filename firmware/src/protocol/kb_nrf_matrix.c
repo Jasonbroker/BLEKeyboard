@@ -120,7 +120,7 @@ uint8_t matrix_scan(void)
         }
     }
     
-    rgb_matrix_test();
+    //rgb_matrix_test();
     return 1;
 }
 
