@@ -666,8 +666,6 @@ void conn_params_init(void)
             m_conn_handle);
     }
     return err_code;
-
-    return err_code;
 }
 
 

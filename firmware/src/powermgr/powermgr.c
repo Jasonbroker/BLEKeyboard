@@ -13,7 +13,7 @@ static bool saadc_initialized = false;
 static nrf_saadc_channel_config_t kb_battery_channel_config = {
     .resistor_p = NRF_SAADC_RESISTOR_DISABLED,
     .resistor_n = NRF_SAADC_RESISTOR_DISABLED,
-    .gain = NRF_SAADC_GAIN1_2,
+    .gain = NRF_SAADC_GAIN1_5,
     .reference = NRF_SAADC_REFERENCE_INTERNAL,
     .acq_time = NRF_SAADC_ACQTIME_10US,
     .mode = NRF_SAADC_MODE_SINGLE_ENDED,
@@ -23,9 +23,8 @@ static nrf_saadc_channel_config_t kb_battery_channel_config = {
 };
 
 static const nrfx_saadc_config_t config = NRFX_SAADC_DEFAULT_CONFIG;
-#define SAMPLES_IN_BUFFER 1
-#define SAMPLES_BUFFER 4
-static nrf_saadc_value_t buffer_pool[2][SAMPLES_BUFFER];
+#define SAMPLES_IN_BUFFER 4
+static nrf_saadc_value_t buffer_pool[2][SAMPLES_IN_BUFFER];
 
 // record battery state
 uint8_t percentage = 255;
@@ -43,20 +42,27 @@ static uint8_t trans_persentage(uint16_t voltage)
 
 static void adc_result_handler(nrf_saadc_value_t value)
 {
-        
-        // RESULT = [V(P) – V(N) ] * GAIN/REFERENCE * 2 ^ (RESOLUTION - m)
-        // value  = V_in / 1.2 * 1024
-        // V_in   = V_bat * 2.2 / 12.2
-        uint16_t voltage = value * 1200 * 122 / 1024 / 22;
+       // 请自行设置，每个人不一样
+      // Maximum voltage: 4.2 V * (22k/(10 k+22 k)) = 2.89 V
+      // Minimum voltage: 2.7 V * (22k /(10 k+22k)) = 1.85 V
+      // ADC value at 4.2 V – 12 bit setup: 2.89 V * (1/5) / 0.6 v * 1023 = 985
+      // ADC value at 2.7 V - 12 bit setup: 1.85 V * (1/5) / 0.6 V * 1023 = 631
+      // Usable ADC resolution - 10 bit setup: 985 - 631 = 354
+      // y = ax + b
+      // a = 354 / (4200 - 2700) = 0.236
+      // b = 631 - 2700 * 0.236 = -6.2
+      //  uint16_t voltage = value * (631 + 6) / 0.236;
+      // uint16_t voltage = (value + 6) / 0.236;
+      uint16_t voltage = (value + 6) *4.2;
         trans_persentage(voltage);
         // ble upate
         // todo 
-        // kb_nrf_print("voltage %d percent %d%%", voltage, percentage);
+        //kb_nrf_print("voltage %d percent %d%%", voltage, percentage);
 }
 
 void adc_evt_cb(nrfx_saadc_evt_t const* event)
 {
-    nrf_saadc_value_t results[1] = { 0 };
+    nrf_saadc_value_t result = 0;
 
     if (event->type != NRFX_SAADC_EVT_DONE) {
       return;
@@ -69,11 +75,11 @@ void adc_evt_cb(nrfx_saadc_evt_t const* event)
 
     // get average result
     for (uint8_t j = 0; j < SAMPLES_IN_BUFFER; j++) {
-        results[j] += event->data.done.p_buffer[j];
+        result += event->data.done.p_buffer[j];
     }
-    results[0];
+    
 
-    adc_result_handler(results[0]);
+    adc_result_handler(result/SAMPLES_IN_BUFFER);
 
     nrfx_saadc_uninit();
     saadc_initialized = false;
@@ -99,7 +105,7 @@ static void saadc_init()
 
 void battery_level_meas_timeout_handler(void * p_context)
 {
-   // kb_nrf_print("measure ");
+    //kb_nrf_print("measure ");
   // forbid reenter
     bool measure_started = true;
 
