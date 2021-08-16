@@ -49,7 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
-static const uint8_t row_pins[MATRIX_ROWS] = {12, 7, 8, 9, 10, 11};
+static const uint8_t row_pins[MATRIX_ROWS] = {6, 7, 8, 9, 10, 11};
 static const uint8_t col_pins[MATRIX_COLS] = {29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 16, 15, 14, 13};
 /*
  * Feature disable options

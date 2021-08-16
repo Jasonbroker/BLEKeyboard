@@ -48,6 +48,8 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 
 void init()
 {
+
+return;
     i2c_init();
     i2c_start(DRIVER_ADDR_1);
     IS31FL3741_init(DRIVER_ADDR_1);
