@@ -1,0 +1,19 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Cortex Debug",
+            "cwd": "${workspaceRoot}",
+            "executable": "./.build/nrf52832_xxaa.out",
+            "servertype":"jlink",
+            "serverpath":"/Applications/SEGGER/JLink_V758b/JLinkGDBServerCLExe",
+            "request": "launch",
+            "device": "nRF52832_xxAA",
+            "type": "cortex-debug",
+        }
+    ]
+}
+// -select USB -device nRF52840_xxAA -endian little -if SWD -speed auto -noir -noLocalhostOnly

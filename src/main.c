@@ -1,9 +1,14 @@
 
+#include "print.h"
 
 int main(int argc, char const *argv[])
 {
-    for (;;) {
+    log_init();
+    
+    printf("init done");
+    dprintf("init debug done");
 
+    for (;;) {
+        NRF_LOG_PROCESS();
     }
-    return 0;
 }
