@@ -1,0 +1,12 @@
+*.o
+*.bin
+*.elf
+*.hex
+*.map
+*.sym
+
+.build/
+.DS_STORE
+configurationCache.log
+dryrun.log
+targets.log
