@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../nRF5_SDK_17.1.0"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"nrf_log_internal.h": "c",
+			"print.h": "c",
+			"timer.h": "c",
+			"sendchar.h": "c"
+		}
+	}
+}

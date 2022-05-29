@@ -228,6 +228,14 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/libraries/uart \
   $(PROJ_DIR)/config \
 
+
+SRC_FILES += $(PROJ_DIR)/i2c_master.c \
+            $(PROJ_DIR)/ssd1306.c \
+            $(PROJ_DIR)/timer.c \
+            $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_twim.c
+
+CFLAGS += -DSSD1306OLED
+
 #### mcu spec
 ifeq ($(strip $(MCU)), 52810)
 SRC_FILES += \
