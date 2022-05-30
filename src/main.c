@@ -41,7 +41,7 @@ void ssd1306_init(void)
     write_i(0xB0);  /*set page address*/
 
     write_i(0x81); /*contract control*/
-    write_i(0x00);  /*128*/
+    write_i(0x80);  /*128*/
     
     write_i(0xA1); /*set segment remap*/
 
@@ -75,8 +75,23 @@ void ssd1306_init(void)
 
 #define PIXEL_WIDTH 128
 #define PIXEL_HEIGHT 32
+#define COL_COUNT 128
+#define ROW_COUNT PIXEL_HEIGHT / 8
 
-uint8_t data[PIXEL_WIDTH*PIXEL_HEIGHT/8+1];
+uint8_t data[ROW_COUNT][COL_COUNT + 1];
+
+void render(void)
+{
+    for (size_t i = 0; i < ROW_COUNT; i++)
+    {
+        write_i(0xB0+i);
+        data[i][0] = 0x40;
+        i2c_transmit(SSD1306ADDR, data[i], sizeof(data[i]), false);
+    }
+}
+
+uint8_t pattern[] = {0xfe, 0xff, 0x07};
+
 void test(void)
 {
     i2c_init();
@@ -88,37 +103,52 @@ void test(void)
     nrf_delay_ms(100);
 
     // clear
-    // write_i3(0x22, 0, 0);
+    // write_i3(0x21, 0, 127);
+    // write_i3(0x22, 0, 7);
 
-    // uint8_t data[PIXEL_WIDTH + 1];
-    // memset(data, 0x00, sizeof(data));
-
-    data[0] = 0x40;
-
-    for (size_t i = 1; i < PIXEL_WIDTH + 1; i++)
+    for (size_t j = 0; j < ROW_COUNT; j++)
     {
-        if (i < 3)
+        for (size_t i = 1; i < COL_COUNT+1; i++)
         {
-            data[i] = 0xff;
-        } else if (i >= PIXEL_WIDTH) {
-            data[i] = 0xff;
-        } else {
-            data[i] = 0x0f;
+            if (j == 0) // 第一行
+            {
+                if (i <= 3 ) {
+                    data[j][i] = pattern[i-1];
+                } else if (i > COL_COUNT - 3) {
+                    data[j][i] = pattern[COL_COUNT - i];
+                } else {
+                    data[j][i] = 0x03;    
+                }
+            } else if (j == ROW_COUNT - 1) {
+                if (i == 1 || i == 2)
+                {
+                    data[j][i] = 0xff;    
+                } else if (i > COL_COUNT - 2)
+                {
+                    data[j][i] = 0xff;
+                } else {
+                    data[j][i] = 0xc0;    
+                }
+            } else {
+
+                if (i == 1 || i == 2)
+                {
+                    data[j][i] = 0xff;    
+                } else if (i > COL_COUNT - 2)
+                {
+                    data[j][i] = 0xff;
+                } else {
+                    data[j][i] = 0x00;    
+                }
+            }
         }
-        data[i] = 0x00;
+        
+        // data[i] = 0x00;
     }
 
+    render();
+
     // write_i3(0x21, 0, PIXEL_WIDTH);
-
-    i2c_transmit(SSD1306ADDR, data, PIXEL_WIDTH + 1, false);
-
-        i2c_transmit(SSD1306ADDR, data, PIXEL_WIDTH + 1, false);
-
-    // i2c_transmit(SSD1306ADDR, data, PIXEL_WIDTH + 1, false);
-
-    // i2c_transmit(SSD1306ADDR, data, PIXEL_WIDTH + 1, false);
-    // i2c_transmit(SSD1306ADDR, data, PIXEL_HEIGHT + 1, false);
-    // i2c_transmit(SSD1306ADDR, data, 128 + 1, false);
     for (;;) {
         NRF_LOG_PROCESS();
     }
@@ -137,7 +167,6 @@ int main(int argc, char const *argv[])
     log_init();
     
     printf("init done");
-    dprintf("init debug done");
 
     test();
     // final();
