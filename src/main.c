@@ -69,6 +69,7 @@ void ssd1306_init(void)
 
     write_i(0x8d); /*set charge pump enable*/
     write_i(0x14); 
+    write_i2(0x20, 0); // horizonal addressing mode
 
     write_i(0xAF); /*display ON*/
 }
@@ -80,32 +81,9 @@ void ssd1306_init(void)
 
 uint8_t data[ROW_COUNT][COL_COUNT + 1];
 
-void render(void)
-{
-    for (size_t i = 0; i < ROW_COUNT; i++)
-    {
-        write_i(0xB0+i);
-        data[i][0] = 0x40;
-        i2c_transmit(SSD1306ADDR, data[i], sizeof(data[i]), false);
-    }
-}
-
 uint8_t pattern[] = {0xfe, 0xff, 0x07};
-
-void test(void)
+void border(void)
 {
-    i2c_init();
-
-    nrf_delay_ms(100);
-    
-    ssd1306_init();
-
-    nrf_delay_ms(100);
-
-    // clear
-    // write_i3(0x21, 0, 127);
-    // write_i3(0x22, 0, 7);
-
     for (size_t j = 0; j < ROW_COUNT; j++)
     {
         for (size_t i = 1; i < COL_COUNT+1; i++)
@@ -119,7 +97,7 @@ void test(void)
                 } else {
                     data[j][i] = 0x03;    
                 }
-            } else if (j == ROW_COUNT - 1) {
+            } else if (j == ROW_COUNT - 1) { // last row
                 if (i == 1 || i == 2)
                 {
                     data[j][i] = 0xff;    
@@ -142,9 +120,34 @@ void test(void)
                 }
             }
         }
-        
-        // data[i] = 0x00;
     }
+}
+
+void render(void)
+{
+    for (size_t i = 0; i < ROW_COUNT; i++)
+    {
+        // write_i(0xB0+i);
+        data[i][0] = 0x40;
+        i2c_transmit(SSD1306ADDR, data[i], sizeof(data[i]), false);
+    }
+}
+
+void test(void)
+{
+    i2c_init();
+
+    nrf_delay_ms(100);
+    
+    ssd1306_init();
+
+    nrf_delay_ms(100);
+
+    // clear
+    // write_i3(0x21, 0, 127);
+    // write_i3(0x22, 0, 7);
+
+    border();
 
     render();
 
@@ -152,12 +155,6 @@ void test(void)
     for (;;) {
         NRF_LOG_PROCESS();
     }
-}
-
-// 0-127 0 - 3
-void move_cursor_2_pos(uint8_t x, uint8_t y)
-{
-
 }
 
 void timer_tick(uint8_t interval);
