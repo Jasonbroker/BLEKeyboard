@@ -178,12 +178,11 @@ struct rect
 void rectv4(struct rect *rect)
 {  
     for (size_t i = 0; i < COL_COUNT; i++)
-    {
-        if (i < rect->x || i > COL_COUNT - 1 - rect->x - rect->w)
-        {
-            render_matrix[i] = 0x0;
+    { 
+        if (i >= rect->x && i < rect->x + rect->w) {
+            render_matrix[i] = (0xFFFFFFFF << rect->y) & (0xFFFFFFFF >> (MAX(0, PIXEL_HEIGHT - rect->y - rect->h)));
         } else {
-            render_matrix[i] = (0xFFFFFFFF << rect->y) & (0xFFFFFFFF >> (MIN(0, PIXEL_HEIGHT - rect->y - rect->h)));
+            render_matrix[i] = 0x0;
         }
     }
 
@@ -192,8 +191,9 @@ void rectv4(struct rect *rect)
         for (size_t i = 0; i < COL_COUNT; i++)
         {
             if (i >= rect->x + rect->border && 
-                i <= COL_COUNT - 1 - rect->x - rect->w - rect->border) {
-                render_matrix[i] ^= (0xFFFFFFFF << (rect->y + rect->border)) & (0xFFFFFFFF >> MIN(PIXEL_HEIGHT - rect->y - rect->h + rect->border, 0));
+                i < rect->x + rect->w - rect->border) {
+                render_matrix[i] ^= (0xFFFFFFFF << (rect->y + rect->border)) & (0xFFFFFFFF >> MAX(PIXEL_HEIGHT - rect->y - rect->h + rect->border, 0));
+                // render_matrix[i] ^= (0xFFFFFFFF << 1) & (0xFFFFFFFF >> 21;
             }
         }
     }
@@ -242,12 +242,12 @@ void tick(void* context)
     }
     i = i + direction;
     struct rect r = {
-        .x = 8,
-        .y = 8,
+        .x = 0,
+        .y = 0,
         .w = 128,
-        .h = 24,
+        .h = 32,
         .solid = false,
-        .border = 3,
+        .border = 1,
     };
     rectv4(&r);
     render();    
