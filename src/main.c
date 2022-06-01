@@ -137,6 +137,36 @@ void rectv2(uint8_t border_width)
     dirty = true;
 }
 
+void rectv3(uint8_t border_width, uint8_t left_offset)
+{  
+    for (size_t i = 0; i < COL_COUNT; i++)
+    {
+        if (i < border_width || i > COL_COUNT - 1 - border_width)
+        {
+            render_matrix[i] = 0xFFFFFFFF;
+        } else {
+            render_matrix[i] = (0xFFFFFFFF >> (32 - border_width)) | (0xFFFFFFFF << (32 - border_width));
+        }
+    }
+
+    for (size_t i = 0; i < ROW_COUNT; i++)
+    {
+        for (size_t j = 0; j < COL_COUNT; j++)
+        {
+            if (j < left_offset)
+            {
+                data[i * COL_COUNT + j+ 1] = 0;
+            } else {
+                data[i * COL_COUNT + j+ 1] = render_matrix[j - left_offset] >> (i * 8);
+            }
+            
+            
+        }
+    }
+
+    dirty = true;
+}
+
 void clear(void)
 {
     memset(data, 0x00, sizeof(data));
@@ -145,7 +175,6 @@ void clear(void)
 
 void render(void)
 {
-    // write_i(0xB0);  /*set page address*/
     if (!dirty)
     {
         return;
@@ -170,7 +199,7 @@ void tick(void* context)
         direction = 1;
     }
     i = i + direction;
-    rectv2(i);
+    rectv3(i, 64);
     render();    
 }
 
