@@ -114,9 +114,9 @@ void rect(uint8_t border_width)
 }
 
 uint32_t render_matrix[COL_COUNT];
-void rectv2(uint8_t border_width)
-{
 
+void __rect_core(uint8_t border_width)
+{
     for (size_t i = 0; i < COL_COUNT; i++)
     {
         if (i < border_width || i > COL_COUNT - 1 - border_width)
@@ -126,6 +126,11 @@ void rectv2(uint8_t border_width)
             render_matrix[i] = (0xFFFFFFFF >> (32 - border_width)) | (0xFFFFFFFF << (32 - border_width));
         }
     }
+}
+void rectv2(uint8_t border_width)
+{
+
+    __rect_core(border_width);
 
     for (size_t i = 0; i < ROW_COUNT; i++)
     {
@@ -139,16 +144,13 @@ void rectv2(uint8_t border_width)
 
 void rectv3(uint8_t border_width, uint8_t left_offset)
 {  
-    for (size_t i = 0; i < COL_COUNT; i++)
+    __rect_core(border_width);
+    dirty = true;
+    if (left_offset == 0)
     {
-        if (i < border_width || i > COL_COUNT - 1 - border_width)
-        {
-            render_matrix[i] = 0xFFFFFFFF;
-        } else {
-            render_matrix[i] = (0xFFFFFFFF >> (32 - border_width)) | (0xFFFFFFFF << (32 - border_width));
-        }
+        return;
     }
-
+    
     for (size_t i = 0; i < ROW_COUNT; i++)
     {
         for (size_t j = 0; j < COL_COUNT; j++)
@@ -158,13 +160,43 @@ void rectv3(uint8_t border_width, uint8_t left_offset)
                 data[i * COL_COUNT + j+ 1] = 0;
             } else {
                 data[i * COL_COUNT + j+ 1] = render_matrix[j - left_offset] >> (i * 8);
-            }
-            
-            
+            }            
         }
     }
+}
 
+struct rect
+{
+    uint8_t x;
+    uint8_t y;
+    uint8_t w;
+    uint8_t h;
+};
+
+void rectv4(struct rect *rect, bool solid, uint8_t border_width)
+{  
+    if (solid)
+    {
+        for (size_t i = 0; i < COL_COUNT; i++)
+        {
+            if (i < rect->x || i > COL_COUNT - 1 - rect->x - rect->w)
+            {
+                render_matrix[i] = 0x0;
+            } else {
+                render_matrix[i] = (0xFFFFFFFF << rect->x) & (0xFFFFFFFF >> (PIXEL_HEIGHT - rect->y - rect->h));
+            }
+        }
+    }
+    
     dirty = true;
+    
+    for (size_t i = 0; i < ROW_COUNT; i++)
+    {
+        for (size_t j = 0; j < COL_COUNT; j++)
+        {
+            data[i * COL_COUNT + j+ 1] = render_matrix[j] >> (i * 8);
+        }
+    }
 }
 
 void clear(void)
@@ -199,7 +231,13 @@ void tick(void* context)
         direction = 1;
     }
     i = i + direction;
-    rectv3(i, 64);
+    struct rect r = {
+        .x = 8,
+        .y = 8,
+        .w = 64,
+        .h = 16
+    };
+    rectv4(&r, true, 0);
     render();    
 }
 
