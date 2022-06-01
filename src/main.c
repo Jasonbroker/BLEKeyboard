@@ -90,17 +90,14 @@ uint8_t pattern[] = {0xfe, 0xf0, 0x07};
 void rect(uint8_t border_width)
 {
     // 128*32
-    // uint8_t *real_matrix = (uint8_t *)(&data + 1);
     for (size_t i = 1; i < sizeof(data); i++)
     {
         // row
         uint8_t row = (i - 1) / COL_COUNT;
         uint8_t col = (i - 1) % COL_COUNT;
 
-        if (col < border_width)
+        if (col < border_width || col >= COL_COUNT - border_width)
         {
-            data[i] = 0xff;
-        } else if (col >= COL_COUNT - border_width) {
             data[i] = 0xff;
         } else {
             if (row == 0)
@@ -116,13 +113,28 @@ void rect(uint8_t border_width)
     dirty = true;
 }
 
+uint32_t render_matrix[COL_COUNT];
 void rectv2(uint8_t border_width)
 {
-    // 128*32
-    for (size_t j = 1; j < sizeof(data); j++)
+
+    for (size_t i = 0; i < COL_COUNT; i++)
     {
-        
+        if (i < border_width || i > COL_COUNT - 1 - border_width)
+        {
+            render_matrix[i] = 0xFFFFFFFF;
+        } else {
+            render_matrix[i] = (0xFFFFFFFF >> (32 - border_width)) | (0xFFFFFFFF << (32 - border_width));
+        }
     }
+
+    for (size_t i = 0; i < ROW_COUNT; i++)
+    {
+        for (size_t j = 0; j < COL_COUNT; j++)
+        {
+            data[i * COL_COUNT + j+ 1] = render_matrix[j] >> (i * 8);
+        }
+    }
+    dirty = true;
 }
 
 void clear(void)
@@ -151,14 +163,14 @@ uint8_t i = 1;
 void tick(void* context)
 {
     static int8_t direction = 1;
-    if (i == 8)
+    if (i == 16)
     {
        direction = -1;
     } else if (i == 1) {
         direction = 1;
     }
     i = i + direction;
-    rect(i);
+    rectv2(i);
     render();    
 }
 

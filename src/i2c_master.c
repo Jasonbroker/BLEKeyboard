@@ -15,13 +15,11 @@ struct tx_item {
     struct {
         bool is_pointer : 1; // 数据位是否是指针
         bool data_send : 1; // 数据是否发送完毕
-        bool sequence : 1; // 是否以连续方式发送，若否则
     } flag;
     union data_or_pointer {
         const uint8_t* data_pointer; // 数据指针
         uint8_t data[4]; // 数据本体
     } data;
-    nrfx_twi_t* channel; // 使用的物理通道
 };
 QUEUE(struct tx_item, twi_tx_buff, 30);
 
