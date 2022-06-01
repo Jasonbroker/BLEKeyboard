@@ -1,12 +1,12 @@
 
 #include "print.h"
-#include "ssd1306.h"
 #include "i2c_master.h"
 #include "timer.h"
 #include "nrf_delay.h"
 
 // 0111100 和 0b111101
 #define SSD1306ADDR 0b111100
+#define FRESH_RATE 20
 
 inline static void __write_i(uint8_t cmd, bool no_stop)
 {
@@ -35,6 +35,7 @@ void write_i3(uint8_t cmd, uint8_t data2, uint8_t data3)
 #define PIXEL_HEIGHT 32
 #define COL_COUNT 128
 #define ROW_COUNT PIXEL_HEIGHT / 8
+bool dirty = false;
 
 void ssd1306_init(void)
 {
@@ -107,9 +108,12 @@ void rect(uint8_t border_width)
                 data[i] = 0xff >> (8 - border_width);
             } else if (row == ROW_COUNT - 1) {
                 data[i] = 0xff << (8 - border_width);
+            } else {
+                data[i] = 0x00;
             }
         }
     }
+    dirty = true;
 }
 
 void rectv2(uint8_t border_width)
@@ -124,18 +128,80 @@ void rectv2(uint8_t border_width)
 void clear(void)
 {
     memset(data, 0x00, sizeof(data));
+    dirty = true;
 }
 
 void render(void)
 {
     // write_i(0xB0);  /*set page address*/
+    if (!dirty)
+    {
+        return;
+    }
+    dirty = false;
     data[0] = 0x40;
     i2c_transmit(SSD1306ADDR, data, sizeof(data), false);
 }
 
-void test(void)
+// add timer
+#include "app_timer.h"
+#include "nrf_drv_clock.h"
+
+uint8_t i = 1;
+void tick(void* context)
 {
-    i2c_init();
+    static int8_t direction = 1;
+    if (i == 8)
+    {
+       direction = -1;
+    } else if (i == 1) {
+        direction = 1;
+    }
+    i = i + direction;
+    rect(i);
+    render();    
+}
+
+APP_TIMER_DEF(m_ticker_id);
+
+void add_render_callback(void) 
+{
+    ret_code_t ret;
+    ret = nrf_drv_clock_init();
+    APP_ERROR_CHECK(ret);
+
+    nrf_drv_clock_lfclk_request(NULL);
+    while(!nrf_drv_clock_lfclk_is_running())
+    {
+        /* Just waiting */
+    }
+    ret_code_t err_code = app_timer_init();
+    APP_ERROR_CHECK(err_code);
+    err_code = app_timer_create(&m_ticker_id, APP_TIMER_MODE_REPEATED, tick);
+    APP_ERROR_CHECK(err_code);
+    err_code = app_timer_start(m_ticker_id, APP_TIMER_TICKS(1000/FRESH_RATE), NULL);
+    APP_ERROR_CHECK(err_code);
+}
+
+#include "app_scheduler.h"
+#include "nrf_pwr_mgmt.h"
+
+#ifndef CONFIG_PIN_SCL
+#define CONFIG_PIN_SCL 3
+#endif
+#ifndef CONFIG_PIN_SDA
+#define CONFIG_PIN_SDA 4
+#endif
+
+
+
+int main(int argc, char const *argv[])
+{
+    log_init();
+    
+    printf("init done");
+
+    i2c_init(CONFIG_PIN_SDA, CONFIG_PIN_SCL);
 
     nrf_delay_ms(100);
     
@@ -143,44 +209,19 @@ void test(void)
 
     nrf_delay_ms(100);
 
-    // clear
     clear();
-
-    rect(1);
 
     render();
 
-
-    // write_i3(0x21, 0, PIXEL_WIDTH);
-    for (;;) {
-        NRF_LOG_PROCESS();
-    }
-}
-
-void timer_tick(uint8_t interval);
-void final(void);
-int main(int argc, char const *argv[])
-{
-    log_init();
+    add_render_callback();
     
-    printf("init done");
-
-    test();
-    // final();
-}
-
-
-void final(void)
-{
-    timer_init();
-
-    iota_gfx_init(false);
-
-    iota_gfx_write_char('a');
     for (;;) {
-        NRF_LOG_PROCESS();
-        iota_gfx_task();
-        timer_tick(1);
+#ifdef APP_TIMER_CONFIG_USE_SCHEDULER
+        app_sched_execute();
+#endif
+        if (NRF_LOG_PROCESS() == false) {
+        nrf_pwr_mgmt_run();
+        }
     }
 }
 

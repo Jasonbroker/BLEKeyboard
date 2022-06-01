@@ -230,7 +230,6 @@ INC_FOLDERS += \
 
 
 SRC_FILES += $(PROJ_DIR)/i2c_master.c \
-            $(PROJ_DIR)/ssd1306.c \
             $(PROJ_DIR)/timer.c \
             $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_twi.c
 

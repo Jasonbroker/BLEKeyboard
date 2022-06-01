@@ -12,7 +12,9 @@
 			"nrf_log_internal.h": "c",
 			"print.h": "c",
 			"timer.h": "c",
-			"sendchar.h": "c"
+			"sendchar.h": "c",
+			"app_scheduler.h": "c",
+			"stdint.h": "c"
 		}
 	}
 }
