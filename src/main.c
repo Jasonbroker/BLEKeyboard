@@ -171,19 +171,29 @@ struct rect
     uint8_t y;
     uint8_t w;
     uint8_t h;
+    bool solid;
+    uint8_t border;
 };
 
-void rectv4(struct rect *rect, bool solid, uint8_t border_width)
+void rectv4(struct rect *rect)
 {  
-    if (solid)
+    for (size_t i = 0; i < COL_COUNT; i++)
+    {
+        if (i < rect->x || i > COL_COUNT - 1 - rect->x - rect->w)
+        {
+            render_matrix[i] = 0x0;
+        } else {
+            render_matrix[i] = (0xFFFFFFFF << rect->y) & (0xFFFFFFFF >> (MIN(0, PIXEL_HEIGHT - rect->y - rect->h)));
+        }
+    }
+
+    if (!rect->solid && rect->border)
     {
         for (size_t i = 0; i < COL_COUNT; i++)
         {
-            if (i < rect->x || i > COL_COUNT - 1 - rect->x - rect->w)
-            {
-                render_matrix[i] = 0x0;
-            } else {
-                render_matrix[i] = (0xFFFFFFFF << rect->x) & (0xFFFFFFFF >> (PIXEL_HEIGHT - rect->y - rect->h));
+            if (i >= rect->x + rect->border && 
+                i <= COL_COUNT - 1 - rect->x - rect->w - rect->border) {
+                render_matrix[i] ^= (0xFFFFFFFF << (rect->y + rect->border)) & (0xFFFFFFFF >> MIN(PIXEL_HEIGHT - rect->y - rect->h + rect->border, 0));
             }
         }
     }
@@ -234,10 +244,12 @@ void tick(void* context)
     struct rect r = {
         .x = 8,
         .y = 8,
-        .w = 64,
-        .h = 16
+        .w = 128,
+        .h = 24,
+        .solid = false,
+        .border = 3,
     };
-    rectv4(&r, true, 0);
+    rectv4(&r);
     render();    
 }
 
