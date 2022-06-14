@@ -84,7 +84,7 @@ void ssd1306_init(void)
     write_i(0xB0);  /*set page address*/
 
     write_i(0x81); /*contract control*/
-    write_i(0x00);  /*128*/
+    write_i(0xf0);  /*128*/
     
     write_i(0xA1); /*set segment remap*/
 
